@@ -1,0 +1,12 @@
+<h3>List</h3>
+
+  <input name=description id="desc" [(ngModel)]="newItemDescription"/>
+  <button (click)="addNewTodo()">+</button>
+
+
+
+  <div *ngFor="let item of todoList">
+    <p>{{item.description}}</p>
+  </div>
+
+  {{todoList | json}}
