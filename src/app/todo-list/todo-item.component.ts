@@ -1,4 +1,5 @@
 import { Component, Input, OnChanges, OnInit } from '@angular/core';
+import { TodoService } from './todo-provider.service';
 import { ITodoItem } from './todoItem';
 
 @Component({
@@ -6,7 +7,7 @@ import { ITodoItem } from './todoItem';
   template: `
   <div *ngIf="!!listItem" class="itemRow">
     <div class="description" [ngClass]="{'completedItem':listItem.done}">{{listItem.description}}</div>
-    <input class="checkbox" type="checkbox" [(ngModel)]="listItem.done"/>
+    <input class="checkbox" type="checkbox" [(ngModel)]="listItem.done" (change)="notifyChangeDone()"/>
   </div>
   <div class="divider"></div>
 
@@ -44,8 +45,8 @@ import { ITodoItem } from './todoItem';
   ]
 })
 export class TodoItemComponent implements OnChanges {
-  @Input() listItem : ITodoItem | null = null;
-  constructor() {
+  @Input() listItem : any = null;
+  constructor(private todoService : TodoService) {
 
    }
 
@@ -53,4 +54,7 @@ export class TodoItemComponent implements OnChanges {
 
   }
 
+  notifyChangeDone(): void{
+    this.todoService.changedStatus(this.listItem);
+  }
 }

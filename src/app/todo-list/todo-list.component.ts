@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { TodoService } from './todo-provider.service';
 import { ITodoItem } from './todoItem';
 
 @Component({
@@ -20,27 +21,18 @@ export class TodoListComponent implements OnInit {
     this._newItemDescription = value;
   };
   validInput: boolean = false;
-  constructor() { }
+  constructor(private todoService : TodoService) { }
 
   ngOnInit(): void {
+    this.todoList = this.todoService.getNotes();
   }
 
   addNewTodo() : void{
     if (!this._newItemDescription)
       return;
 
-    let listLength = this.todoList.length;
-    let lastId = 0;
-    if (this.todoList.length !== 0)
-      lastId = Math.max(...this.todoList.map(_ => _.id));
+    this.todoList = this.todoService.addNote(this._newItemDescription);
 
-    let newTodo : ITodoItem = {
-      id: lastId + 1,
-      description: this._newItemDescription,
-      order: listLength,
-      done: false
-    };
-    this.todoList.push(newTodo);
     this.newItemDescription = '';
   }
 }
