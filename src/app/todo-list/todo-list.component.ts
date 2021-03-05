@@ -24,14 +24,17 @@ export class TodoListComponent implements OnInit {
   constructor(private todoService : TodoService) { }
 
   ngOnInit(): void {
-    this.todoList = this.todoService.getNotes();
+    this.todoService.listChanged.subscribe(
+      updatedList => this.todoList = updatedList
+    );
+    this.todoService.pushListUpdate();
   }
 
   addNewTodo() : void{
     if (!this._newItemDescription)
       return;
 
-    this.todoList = this.todoService.addNote(this._newItemDescription);
+    this.todoService.addNote(this._newItemDescription);
 
     this.newItemDescription = '';
   }

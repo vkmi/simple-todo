@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, EventEmitter } from '@angular/core';
 import { ITodoItem } from './todoItem';
 
 @Injectable({
@@ -11,26 +11,29 @@ export class TodoService {
     {
       id: 1,
       description: 'First Seed Note',
-      order: 0,
+      order: 1,
       done: false,
     },
     {
       id: 2,
       description: 'Canceled Seed Note',
-      order: 1,
+      order: 2,
       done: true,
     },
   ];
   get undoneListLength(): number {
     return this.todoList.filter((_) => !_.done).length;
   }
+  listChanged: EventEmitter<ITodoItem[]> = new EventEmitter<ITodoItem[]>();
+
+
   constructor() {}
 
-  getNotes(): ITodoItem[] {
-    return this.todoList ?? [];
+  pushListUpdate(): void {
+    this.listChanged.emit(this.todoList ?? []);
   }
 
-  addNote(description: string): ITodoItem[] {
+  addNote(description: string): void {
     let lastId = 0;
     if (this.todoList.length !== 0)
       lastId = Math.max(...this.todoList.map((_) => _.id));
@@ -38,14 +41,14 @@ export class TodoService {
     let newTodo: ITodoItem = {
       id: lastId + 1,
       description: description,
-      order: this.undoneListLength,
+      order: this.undoneListLength+1,
       done: false,
     };
     this.pushDoneDown();
     this.todoList.push(newTodo);
     this.todoList.sort(this.itemComparer);
 
-    return this.getNotes();
+    this.pushListUpdate();
   }
 
   changedStatus(item: ITodoItem): void {
@@ -53,7 +56,7 @@ export class TodoService {
     if (item.done) {
       this.pushDoneDown();
       this.todoList[index].done = item.done;
-      this.todoList[index].order = this.undoneListLength + 1;
+      this.todoList[index].order = this.undoneListLength + 2;
     }
     if (!item.done) {
       this.todoList[index].done = item.done;
@@ -61,25 +64,24 @@ export class TodoService {
       this.pushDoneDown();
     }
     this.todoList.sort(this.itemComparer);
-    console.log(this.todoList);
     this.todoList = this.todoList.map(_ => {_.order = this.todoList.indexOf(_)+1; return _});
-    console.log(this.todoList);
-    // notifyListChanged();
+
+    this.pushListUpdate();
   }
 
-  pushDoneDown(): void {
+  private pushDoneDown(): void {
     this.todoList = this.todoList.map((_) => {
       if (_.done) _.order += 1;
       return _;
     });
   }
-  pushDoneUp(): void {
+  private pushDoneUp(): void {
     this.todoList = this.todoList.map((_) => {
       if (_.done) _.order -= 1;
       return _;
     });
   }
-  itemComparer(a: ITodoItem, b: ITodoItem): number {
+  private itemComparer(a: ITodoItem, b: ITodoItem): number {
     if (a.order < b.order) return -1;
     if (a.order > b.order) return 1;
     return 0;
