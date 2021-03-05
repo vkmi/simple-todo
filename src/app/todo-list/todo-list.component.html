@@ -1,9 +1,9 @@
 <div class="container">
   <div class="inputFlexItem">
-    <input class="input" name=description id="desc" placeholder="Insert note here"
+    <input name=description id="desc" placeholder="Insert note here"
       [(ngModel)]="newItemDescription"
       (keyup.enter)="addNewTodo()"/>
-    <button (click)="addNewTodo()" [disabled]="!validInput">+</button>
+    <button class="" (click)="addNewTodo()" [disabled]="!validInput">+</button>
   </div>
 
 

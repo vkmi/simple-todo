@@ -1,34 +1,68 @@
 .container{
   width: 100%;
-  height: calc(100vh - 100px);
-  padding-bottom: 10px;
+  height: calc(100vh - 90px);
+  padding: 10px 0;
 
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  row-gap: 10px;
+  display: grid;
+  grid-template-rows: 50px auto;
+  grid-template-columns: auto min(500px, 50vw) auto;
+  grid-template-areas:
+    ". input ."
+    ". notes .";
+  gap: 10px;
+
 }
 
 .inputFlexItem{
-  flex-grow: 0 0 auto;
+  grid-area: input;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: flex-end;
 }
-
-.input{
+.inputFlexItem > input {
   margin: 10px !important;
-  width: 300px;
+  flex: 1 1 300px;
+  background-color: inherit;
+  color: whitesmoke;
+
+  border: 0;
+  border-bottom: 2px solid gray;
+}
+.inputFlexItem > input:focus {
+  outline: none;
+}
+.inputFlexItem > button {
+  flex: 0 0 30px;
+  margin: 10px !important;
+  height: 30px;
+  width: 30px;
+  border-radius: 100px;
+  background-color:  teal;
+  color: whitesmoke;
+  font-weight: 800;
+  border: 0;
+  box-shadow: 0 0 7px #333;
+  outline: none;
+  transition: box-shadow 0.3s;
+}
+.inputFlexItem > button:disabled {
+  background-color:  lightgray;
+  color: gray;
+}
+.inputFlexItem > button:hover {
+  box-shadow: 0 0 10px #333;
+  transition: box-shadow 0.3s;
+}
+.inputFlexItem > button:focus {
+  box-shadow: 0 0 2px #333;
 }
 
 .notesList{
-  width: 50vw;
-  max-width: 500px;
-  background-color: #F3F375;
-  box-shadow: 0 3px 5px;
-  padding: 20px;
+  background-color: #20262e;
+  box-shadow: 0 0px 5px;
+  padding: 5px;
 
-  flex: 1 0 auto;
-
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
-
+  grid-area: notes;
+  border-radius: 3px;
 }
