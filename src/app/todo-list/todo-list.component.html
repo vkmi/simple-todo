@@ -1,12 +1,16 @@
-<h3>List</h3>
-
-  <input name=description id="desc" [(ngModel)]="newItemDescription"/>
-  <button (click)="addNewTodo()">+</button>
-
-
-
-  <div *ngFor="let item of todoList">
-    <p>{{item.description}}</p>
+<div class="container">
+  <div class="inputFlexItem">
+    <input class="input" name=description id="desc" placeholder="Insert note here"
+      [(ngModel)]="newItemDescription"
+      (keyup.enter)="addNewTodo()"/>
+    <button (click)="addNewTodo()" [disabled]="!validInput">+</button>
   </div>
 
-  {{todoList | json}}
+
+  <div class="notesList">
+    <div *ngFor="let item of todoList">
+      <app-todo-item [listItem]="item"></app-todo-item>
+    </div>
+  </div>
+</div>
+  <!-- {{todoList | json}} -->

@@ -1,0 +1,34 @@
+.container{
+  width: 100%;
+  height: calc(100vh - 100px);
+  padding-bottom: 10px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  row-gap: 10px;
+}
+
+.inputFlexItem{
+  flex-grow: 0 0 auto;
+}
+
+.input{
+  margin: 10px !important;
+  width: 300px;
+}
+
+.notesList{
+  width: 50vw;
+  max-width: 500px;
+  background-color: #F3F375;
+  box-shadow: 0 3px 5px;
+  padding: 20px;
+
+  flex: 1 0 auto;
+
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+
+}

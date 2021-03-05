@@ -8,27 +8,39 @@ import { ITodoItem } from './todoItem';
 })
 export class TodoListComponent implements OnInit {
   todoList : ITodoItem[] = [];
-  newItemDescription: string = "";
+  _newItemDescription: string = "";
+  get newItemDescription(): string {
+    return this._newItemDescription;
+  }
+  set newItemDescription(value: string){
+      if (!!value)
+        this.validInput = true;
+      else
+        this.validInput = false;
+    this._newItemDescription = value;
+  };
+  validInput: boolean = false;
   constructor() { }
 
   ngOnInit(): void {
   }
 
   addNewTodo() : void{
-    let listLength = this.todoList.length;
-    let lastId = this
-      .todoList
-      .sort(_ => _.id)
-      .reverse()[0]?.id ?? 0;
+    if (!this._newItemDescription)
+      return;
 
-    console.log(this.newItemDescription);
+    let listLength = this.todoList.length;
+    let lastId = 0;
+    if (this.todoList.length !== 0)
+      lastId = Math.max(...this.todoList.map(_ => _.id));
 
     let newTodo : ITodoItem = {
       id: lastId + 1,
-      description: this.newItemDescription,
+      description: this._newItemDescription,
       order: listLength,
       done: false
     };
     this.todoList.push(newTodo);
+    this.newItemDescription = '';
   }
 }
