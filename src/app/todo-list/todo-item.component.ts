@@ -5,20 +5,20 @@ import { ITask } from './todoItem';
 @Component({
   selector: 'app-todo-item',
   template: `
-    <div name="row" *ngIf="!task?.done" cdkDrag>
+    <div name="row" *ngIf="!task?.completed" cdkDrag>
       <div class="itemRow">
         <div class="description">
           {{ task.description }}
         </div>
         <input
           type="checkbox"
-          [(ngModel)]="task.done"
+          [(ngModel)]="task.completed"
           (change)="changedCompletionStatus()"
         />
       </div>
       <div class="divider"></div>
     </div>
-    <div name="row" *ngIf="task?.done">
+    <div name="row" *ngIf="task?.completed">
       <div class="itemRow">
         <div class="description completedItem">
           {{ task.description }}
@@ -28,7 +28,7 @@ import { ITask } from './todoItem';
         </button>
         <input
           type="checkbox"
-          [(ngModel)]="task.done"
+          [(ngModel)]="task.completed"
           (change)="changedCompletionStatus()"
         />
       </div>
