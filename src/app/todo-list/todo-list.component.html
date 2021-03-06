@@ -1,16 +1,23 @@
 <div class="container">
   <div class="inputFlexItem">
-    <input name=description id="desc" placeholder="Insert new note"
+    <input
+      name="description"
+      id="desc"
+      placeholder="Insert new note"
       [(ngModel)]="newItemDescription"
-      (keyup.enter)="addNewTodo()"/>
+      (keyup.enter)="addNewTodo()"
+    />
     <button class="" (click)="addNewTodo()" [disabled]="!validInput">+</button>
   </div>
 
-
-  <div cdkDropList (cdkDropListDropped)="updateListOrder($event)" class="notesList">
-    <div *ngFor="let item of todoList" >
+  <div
+    cdkDropList
+    (cdkDropListDropped)="updateListOrder($event)"
+    class="notesList"
+  >
+    <div *ngFor="let item of todoList">
       <app-todo-item [id]="item.id" [listItem]="item"></app-todo-item>
     </div>
   </div>
 </div>
-  <!-- <pre style="color: white; background-color: gray;"  ><code >{{todoList | json}}</code></pre> -->
+<!-- <pre style="color: white; background-color: gray;"  ><code >{{todoList | json}}</code></pre> -->
