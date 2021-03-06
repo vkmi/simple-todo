@@ -7,8 +7,8 @@ import { ITodoItem } from './todoItem';
   template: `
   <div *ngIf="!!listItem" class="itemRow">
     <div class="description" [ngClass]="{'completedItem':listItem.done}">{{listItem.description}}</div>
-    <input *ngIf="listItem.done" type="button" value="-" (click)="deleteItem()"/>
-    <input class="checkbox" type="checkbox" [(ngModel)]="listItem.done" (change)="notifyChangeDone()"/>
+    <button *ngIf="listItem.done"(click)="deleteItem()"><i class="material-icons">remove_circle</i></button>
+    <input type="checkbox" [(ngModel)]="listItem.done" (change)="notifyChangeDone()"/>
   </div>
   <div class="divider"></div>
 
@@ -41,6 +41,18 @@ import { ITodoItem } from './todoItem';
     background-color: #40464e;
     width: 96%;
     margin-left:2%;
+  }
+
+  .itemRow > button{
+    background-color: rgba(0,0,0,0);
+    border:0;
+
+    margin-right: -25px;
+    padding-top: 5px;
+  }
+  .itemRow > button > i{
+    color: red;
+    font-size:15px;
   }
   `
   ]

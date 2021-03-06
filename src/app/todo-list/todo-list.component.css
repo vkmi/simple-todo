@@ -35,6 +35,8 @@
 .inputFlexItem > button {
   flex: 0 0 30px;
   margin: 10px !important;
+  padding-top: -1px;
+  padding-left: 8px;
   height: 30px;
   width: 30px;
   border-radius: 100px;
