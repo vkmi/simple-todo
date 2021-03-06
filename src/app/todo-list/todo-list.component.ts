@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TodoService } from './todo-provider.service';
-import { ITodoItem } from './todoItem';
+import { ITask } from './todoItem';
 
 @Component({
   selector: 'app-todo-list',
@@ -8,37 +8,37 @@ import { ITodoItem } from './todoItem';
   styleUrls: ['./todo-list.component.css'],
 })
 export class TodoListComponent implements OnInit {
-  todoList: ITodoItem[] = [];
-  _newItemDescription: string = '';
-  get newItemDescription(): string {
-    return this._newItemDescription;
+  tasklist: ITask[] = [];
+  _newTaskDescription: string = '';
+  get newTaskDescription(): string {
+    return this._newTaskDescription;
   }
-  set newItemDescription(value: string) {
+  set newTaskDescription(value: string) {
     if (!!value) this.validInput = true;
     else this.validInput = false;
-    this._newItemDescription = value;
+    this._newTaskDescription = value;
   }
   validInput: boolean = false;
   constructor(private todoService: TodoService) {}
 
   ngOnInit(): void {
     this.todoService.taskList.subscribe(
-      (updatedList) => (this.todoList = updatedList)
+      (updatedTasklist) => (this.tasklist = updatedTasklist)
     );
     this.todoService.readTaskList();
   }
 
-  addNewTodo(): void {
-    if (!this._newItemDescription) return;
+  addNewTask(): void {
+    if (!this._newTaskDescription) return;
 
-    this.todoService.addNote(this._newItemDescription);
+    this.todoService.addTask(this._newTaskDescription);
 
-    this.newItemDescription = '';
+    this.newTaskDescription = '';
   }
 
   updateListOrder(event: any): void {
     if (event.previousIndex === event.currentIndex) return;
 
-    this.todoService.updateListOrder(event.previousIndex, event.currentIndex);
+    this.todoService.updateTaskListOrder(event.previousIndex, event.currentIndex);
   }
 }

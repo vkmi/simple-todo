@@ -1,35 +1,35 @@
 import { Component, Input, OnChanges, OnInit } from '@angular/core';
 import { TodoService } from './todo-provider.service';
-import { ITodoItem } from './todoItem';
+import { ITask } from './todoItem';
 
 @Component({
   selector: 'app-todo-item',
   template: `
-    <div name="row" *ngIf="!listItem?.done" cdkDrag>
+    <div name="row" *ngIf="!task?.done" cdkDrag>
       <div class="itemRow">
         <div class="description">
-          {{ listItem.description }}
+          {{ task.description }}
         </div>
         <input
           type="checkbox"
-          [(ngModel)]="listItem.done"
-          (change)="notifyChangeDone()"
+          [(ngModel)]="task.done"
+          (change)="changedCompletionStatus()"
         />
       </div>
       <div class="divider"></div>
     </div>
-    <div name="row" *ngIf="listItem?.done">
+    <div name="row" *ngIf="task?.done">
       <div class="itemRow">
         <div class="description completedItem">
-          {{ listItem.description }}
+          {{ task.description }}
         </div>
         <button (click)="deleteItem()">
           <i class="material-icons">remove_circle</i>
         </button>
         <input
           type="checkbox"
-          [(ngModel)]="listItem.done"
-          (change)="notifyChangeDone()"
+          [(ngModel)]="task.done"
+          (change)="changedCompletionStatus()"
         />
       </div>
       <div class="divider"></div>
@@ -78,16 +78,16 @@ import { ITodoItem } from './todoItem';
   ],
 })
 export class TodoItemComponent implements OnChanges {
-  @Input() listItem: any = null;
+  @Input() task: any = null;
   constructor(private todoService: TodoService) {}
 
   ngOnChanges(): void {}
 
-  notifyChangeDone(): void {
-    this.todoService.changedStatus(this.listItem);
+  changedCompletionStatus(): void {
+    this.todoService.changeCompletionStatus(this.task);
   }
 
   deleteItem(): void {
-    this.todoService.deleteNote(this.listItem.id);
+    this.todoService.deleteTask(this.task.id);
   }
 }

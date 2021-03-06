@@ -1,6 +1,6 @@
-export interface ITodoItem {
+export interface ITask {
   id: number;
   description: string;
   order: number;
-  done: boolean;
+  completed: boolean;
 }

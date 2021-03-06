@@ -1,70 +1,70 @@
 import { Injectable } from '@angular/core';
-import { ITodoItem } from '../todo-list/todoItem';
+import { ITask } from '../todo-list/todoItem';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ApiServiceService {
-  todoList: ITodoItem[] = [];
-  instructionsList: ITodoItem[] = [
+  todoList: ITask[] = [];
+  instructionsList: ITask[] = [
     {
       id: 0,
       description: 'Uncomplete tasks will always be on top',
       order: 0,
-      done: false,
+      completed: false,
     },
     {
       id: 1,
       description: 'Completing a task will move it down to the completed items',
       order: 1,
-      done: false,
+      completed: false,
     },
     {
       id: 2,
       description: 'Tasks can be dragged to change their order',
       order: 2,
-      done: false,
+      completed: false,
     },
     {
       id: 3,
       description: 'Completed tasks will always be on the bottom',
       order: 3,
-      done: true,
+      completed: true,
     },
     {
       id: 4,
       description: 'Only completed tasks can be deleted, so work hard',
       order: 4,
-      done: true,
+      completed: true,
     },
   ];
   get unfinishedListLength(): number {
-    return this.todoList.filter((_) => !_.done).length;
+    return this.todoList.filter((_) => !_.completed).length;
   }
 
   constructor() {
     this.todoList = this.readListFromLocalStorage();
   }
 
-  createNote(description: string): ITodoItem[] {
+  createTask(description: string): ITask[] {
     let lastId = -1;
     if (this.todoList.length !== 0) {
       lastId = Math.max(...this.todoList.map((_) => _.id));
     }
-    let newTodo: ITodoItem = {
+    let newTodo: ITask = {
       id: lastId + 1,
       description: description,
       order: this.unfinishedListLength,
-      done: false,
+      completed: false,
     };
-    this.pushDoneDown();
+    this.pushCompletedDown();
     this.todoList.push(newTodo);
     this.reorderList();
 
     this.writeListToLocalStorage();
-    return this.readNotes();
+    return this.readTasklist();
   }
-  readNotes(): ITodoItem[] {
+  readTasklist(): ITask[] {
     let savedList = localStorage.getItem('todoList');
     if (!savedList) {
       this.todoList = this.instructionsList;
@@ -74,31 +74,31 @@ export class ApiServiceService {
     }
     return this.todoList;
   }
-  updateNoteStatus(item: ITodoItem): ITodoItem[]{
+  updateTaskCompletionStatus(item: ITask): ITask[]{
     let index = this.todoList.findIndex((_) => _.id === item.id);
-    if (item.done) {
-      this.pushDoneDown();
-      this.todoList[index].done = item.done;
+    if (item.completed) {
+      this.pushCompletedDown();
+      this.todoList[index].completed = item.completed;
       this.todoList[index].order = this.unfinishedListLength + 1;
     }
-    if (!item.done) {
-      this.todoList[index].done = item.done;
+    if (!item.completed) {
+      this.todoList[index].completed = item.completed;
       this.todoList[index].order = this.unfinishedListLength - 1;
-      this.pushDoneDown();
+      this.pushCompletedDown();
     }
     this.reorderList();
 
     this.writeListToLocalStorage();
-    return this.readNotes();
+    return this.readTasklist();
   }
-  deleteNote(id:number):ITodoItem[]{
+  deleteTask(id:number):ITask[]{
     this.todoList = this.todoList.filter((_) => _.id !== id);
     this.reorderList();
 
     this.writeListToLocalStorage();
-    return this.readNotes();
+    return this.readTasklist();
   }
-  updateNotesOrder(previousIndex: number, newIndex: number): ITodoItem[] {
+  updateTasklistOrder(previousIndex: number, newIndex: number): ITask[] {
     if (newIndex > previousIndex) {
       this.todoList.forEach((_) => {
         if (_.order > previousIndex && _.order <= newIndex) _.order--;
@@ -113,7 +113,7 @@ export class ApiServiceService {
 
     this.reorderList();
     this.writeListToLocalStorage();
-    return this.readNotes();
+    return this.readTasklist();
   }
 
   // PRIVATE METHODS
@@ -124,21 +124,21 @@ export class ApiServiceService {
       return _;
     });
   }
-  private pushDoneDown(): void {
+  private pushCompletedDown(): void {
     this.todoList = this.todoList.map((_) => {
-      if (_.done) _.order += 1;
+      if (_.completed) _.order += 1;
       return _;
     });
   }
-  private itemComparer(a: ITodoItem, b: ITodoItem): number {
+  private itemComparer(a: ITask, b: ITask): number {
     if (a.order < b.order) return -1;
     if (a.order > b.order) return 1;
     return 0;
   }
-  private readListFromLocalStorage(): ITodoItem[] {
+  private readListFromLocalStorage(): ITask[] {
     let notesList = JSON.parse(
       localStorage.getItem('todoList') ?? '[]'
-    ) as ITodoItem[];
+    ) as ITask[];
     return notesList;
   }
   private writeListToLocalStorage(): void {

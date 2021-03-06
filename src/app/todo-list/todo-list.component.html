@@ -4,16 +4,16 @@
       name="description"
       id="desc"
       placeholder="Insert new note"
-      [(ngModel)]="newItemDescription"
-      (keyup.enter)="addNewTodo()"
+      [(ngModel)]="newTaskDescription"
+      (keyup.enter)="addNewTask()"
     />
-    <button class="" (click)="addNewTodo()" [disabled]="!validInput">+</button>
+    <button class="" (click)="addNewTask()" [disabled]="!validInput">+</button>
   </div>
 
   <div class="notesList">
     <div cdkDropList (cdkDropListDropped)="updateListOrder($event)">
-      <div *ngFor="let item of todoList">
-        <app-todo-item [id]="item.id" [listItem]="item"></app-todo-item>
+      <div *ngFor="let item of tasklist">
+        <app-todo-item [id]="item.id" [task]="item"></app-todo-item>
       </div>
     </div>
   </div>

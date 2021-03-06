@@ -1,37 +1,37 @@
 import { Injectable, EventEmitter } from '@angular/core';
 import { ApiServiceService } from '../simulated-backend/api-service.service';
-import { ITodoItem } from './todoItem';
+import { ITask } from './todoItem';
 
 @Injectable({
   providedIn: 'root',
 })
 export class TodoService {
-  todoList: ITodoItem[] = [];
+  tasks: ITask[] = [];
 
-  taskList: EventEmitter<ITodoItem[]> = new EventEmitter<ITodoItem[]>();
+  taskList: EventEmitter<ITask[]> = new EventEmitter<ITask[]>();
   constructor(private apiService: ApiServiceService) {}
 
   readTaskList(): void {
-    this.taskList.emit(this.apiService.readNotes());
+    this.taskList.emit(this.apiService.readTasklist());
   }
 
-  addNote(description: string): void {
-    this.todoList = this.apiService.createNote(description);
+  addTask(description: string): void {
+    this.tasks = this.apiService.createTask(description);
     this.readTaskList();
   }
 
-  deleteNote(id: number): void {
-    this.todoList = this.apiService.deleteNote(id);
+  deleteTask(id: number): void {
+    this.tasks = this.apiService.deleteTask(id);
     this.readTaskList();
   }
 
-  changedStatus(item: ITodoItem): void {
-    this.todoList = this.apiService.updateNoteStatus(item);
+  changeCompletionStatus(item: ITask): void {
+    this.tasks = this.apiService.updateTaskCompletionStatus(item);
     this.readTaskList();
   }
 
-  updateListOrder(previousIndex: number, newIndex: number): void {
-    this.todoList = this.apiService.updateNotesOrder(previousIndex, newIndex);
+  updateTaskListOrder(previousIndex: number, newIndex: number): void {
+    this.tasks = this.apiService.updateTasklistOrder(previousIndex, newIndex);
     this.readTaskList();
   }
 }
