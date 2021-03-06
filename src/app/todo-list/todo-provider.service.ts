@@ -61,9 +61,9 @@ export class TodoService {
 
   addNote(description: string): void {
     let lastId = -1;
-    if (this.todoList.length !== 0)
+    if (this.todoList.length !== 0) {
       lastId = Math.max(...this.todoList.map((_) => _.id));
-
+    }
     let newTodo: ITodoItem = {
       id: lastId + 1,
       description: description,
@@ -84,7 +84,7 @@ export class TodoService {
   }
 
   changedStatus(item: ITodoItem): void {
-    let index = this.todoList.findIndex((_) => _.id == item.id);
+    let index = this.todoList.findIndex((_) => _.id === item.id);
     if (item.done) {
       this.pushDoneDown();
       this.todoList[index].done = item.done;

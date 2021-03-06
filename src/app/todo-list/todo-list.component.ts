@@ -1,11 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TodoService } from './todo-provider.service';
 import { ITodoItem } from './todoItem';
-// import {
-//   CdkDragDrop,
-//   moveItemInArray,
-//   transferArrayItem
-// } from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-todo-list',
