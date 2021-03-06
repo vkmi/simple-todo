@@ -1,4 +1,4 @@
-.container{
+.container {
   width: 100%;
   height: calc(100vh - 90px);
   padding: 10px 0;
@@ -10,10 +10,19 @@
     ". input ."
     ". notes .";
   gap: 10px;
-
+}
+@media only screen and (max-width: 600px) {
+  .container {
+    width: calc(100vw - 50px);
+    margin-left: 25px;
+    margin-right: 25px;
+    grid-template-areas:
+      "input input input"
+      ". notes .";
+  }
 }
 
-.inputFlexItem{
+.inputFlexItem {
   grid-area: input;
   display: flex;
   flex-direction: row;
@@ -45,7 +54,7 @@
   height: 30px;
   width: 30px;
   border-radius: 100px;
-  background-color:  teal;
+  background-color: teal;
   color: whitesmoke;
   font-weight: 800;
   border: 0;
@@ -54,7 +63,7 @@
   transition: box-shadow 0.3s;
 }
 .inputFlexItem > button:disabled {
-  background-color:  lightgray;
+  background-color: lightgray;
   color: gray;
 }
 .inputFlexItem > button:hover {
@@ -65,7 +74,7 @@
   box-shadow: 0 0 2px #333;
 }
 
-.notesList{
+.notesList {
   background-color: #20262e;
   box-shadow: 0 0px 5px;
   padding: 5px;
