@@ -9,15 +9,15 @@ export class TodoService {
 
   todoList: ITodoItem[] = [
     {
-      id: 1,
-      description: 'First Seed Note',
-      order: 1,
+      id: 0,
+      description: 'First Note',
+      order: 0,
       done: false,
     },
     {
-      id: 2,
-      description: 'Canceled Seed Note',
-      order: 2,
+      id: 1,
+      description: 'Deleted Note',
+      order: 1,
       done: true,
     },
   ];
@@ -34,14 +34,14 @@ export class TodoService {
   }
 
   addNote(description: string): void {
-    let lastId = 0;
+    let lastId = -1;
     if (this.todoList.length !== 0)
       lastId = Math.max(...this.todoList.map((_) => _.id));
 
     let newTodo: ITodoItem = {
       id: lastId + 1,
       description: description,
-      order: this.undoneListLength+1,
+      order: this.undoneListLength,
       done: false,
     };
     this.pushDoneDown();
@@ -63,11 +63,11 @@ export class TodoService {
     if (item.done) {
       this.pushDoneDown();
       this.todoList[index].done = item.done;
-      this.todoList[index].order = this.undoneListLength + 2;
+      this.todoList[index].order = this.undoneListLength + 1;
     }
     if (!item.done) {
       this.todoList[index].done = item.done;
-      this.todoList[index].order = this.undoneListLength;
+      this.todoList[index].order = this.undoneListLength - 1;
       this.pushDoneDown();
     }
 
@@ -75,9 +75,29 @@ export class TodoService {
     this.pushListUpdate();
   }
 
+  updateListOrder(previousIndex:number, newIndex:number):void{
+
+    if (newIndex > previousIndex){
+      this.todoList.forEach(_ => {
+        if (_.order > previousIndex && _.order <= newIndex)
+          _.order--;
+      })
+    }
+    if (newIndex < previousIndex){
+      this.todoList.forEach(_ => {
+        if (_.order < previousIndex && _.order >= newIndex)
+          _.order++;
+      })
+    }
+    this.todoList[previousIndex].order = newIndex;
+
+    this.reorderList();
+    this.pushListUpdate();
+  }
+
   private reorderList(): void{
     this.todoList.sort(this.itemComparer);
-    this.todoList = this.todoList.map(_ => {_.order = this.todoList.indexOf(_)+1; return _});
+    this.todoList = this.todoList.map(_ => {_.order = this.todoList.indexOf(_); return _});
   }
 
   private pushDoneDown(): void {

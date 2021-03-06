@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -21,7 +22,7 @@ import { TodoItemComponent } from './todo-list/todo-item.component';
     BrowserAnimationsModule,
     CommonModule,
     FormsModule,
-
+    DragDropModule
   ],
   providers: [],
   bootstrap: [AppComponent]

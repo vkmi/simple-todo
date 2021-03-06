@@ -7,10 +7,10 @@
   </div>
 
 
-  <div class="notesList">
-    <div *ngFor="let item of todoList">
-      <app-todo-item [listItem]="item"></app-todo-item>
+  <div cdkDropList (cdkDropListDropped)="updateListOrder($event)" class="notesList">
+    <div *ngFor="let item of todoList" >
+      <app-todo-item [id]="item.id" [listItem]="item"></app-todo-item>
     </div>
   </div>
 </div>
-  <!-- {{todoList | json}} -->
+  <!-- <pre style="color: white; background-color: gray;"  ><code >{{todoList | json}}</code></pre> -->

@@ -1,6 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { TodoService } from './todo-provider.service';
 import { ITodoItem } from './todoItem';
+// import {
+//   CdkDragDrop,
+//   moveItemInArray,
+//   transferArrayItem
+// } from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-todo-list',
@@ -37,5 +42,12 @@ export class TodoListComponent implements OnInit {
     this.todoService.addNote(this._newItemDescription);
 
     this.newItemDescription = '';
+  }
+
+  updateListOrder(event: any) : void{
+    if (event.previousIndex === event.currentIndex)
+      return;
+
+    this.todoService.updateListOrder(event.previousIndex, event.currentIndex);
   }
 }
