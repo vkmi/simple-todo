@@ -5,12 +5,25 @@ import { ITodoItem } from './todoItem';
 @Component({
   selector: 'app-todo-item',
   template: `
-    <div name="row" cdkDrag>
-      <div *ngIf="!!listItem" class="itemRow">
-        <div class="description" [ngClass]="{ completedItem: listItem.done }">
+    <div name="row" *ngIf="!listItem?.done" cdkDrag>
+      <div class="itemRow">
+        <div class="description">
           {{ listItem.description }}
         </div>
-        <button *ngIf="listItem.done" (click)="deleteItem()">
+        <input
+          type="checkbox"
+          [(ngModel)]="listItem.done"
+          (change)="notifyChangeDone()"
+        />
+      </div>
+      <div class="divider"></div>
+    </div>
+    <div name="row" *ngIf="listItem?.done">
+      <div class="itemRow">
+        <div class="description completedItem">
+          {{ listItem.description }}
+        </div>
+        <button (click)="deleteItem()">
           <i class="material-icons">remove_circle</i>
         </button>
         <input

@@ -10,13 +10,11 @@
     <button class="" (click)="addNewTodo()" [disabled]="!validInput">+</button>
   </div>
 
-  <div
-    cdkDropList
-    (cdkDropListDropped)="updateListOrder($event)"
-    class="notesList"
-  >
-    <div *ngFor="let item of todoList">
-      <app-todo-item [id]="item.id" [listItem]="item"></app-todo-item>
+  <div class="notesList">
+    <div cdkDropList (cdkDropListDropped)="updateListOrder($event)">
+      <div *ngFor="let item of todoList">
+        <app-todo-item [id]="item.id" [listItem]="item"></app-todo-item>
+      </div>
     </div>
   </div>
 </div>
