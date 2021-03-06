@@ -46,8 +46,15 @@ export class TodoService {
     };
     this.pushDoneDown();
     this.todoList.push(newTodo);
-    this.todoList.sort(this.itemComparer);
 
+    this.reorderList();
+    this.pushListUpdate();
+  }
+
+  deleteNote(id: number): void{
+
+    this. todoList = this.todoList.filter(_ => _.id !== id);
+    this.reorderList();
     this.pushListUpdate();
   }
 
@@ -63,10 +70,14 @@ export class TodoService {
       this.todoList[index].order = this.undoneListLength;
       this.pushDoneDown();
     }
+
+    this.reorderList();
+    this.pushListUpdate();
+  }
+
+  private reorderList(): void{
     this.todoList.sort(this.itemComparer);
     this.todoList = this.todoList.map(_ => {_.order = this.todoList.indexOf(_)+1; return _});
-
-    this.pushListUpdate();
   }
 
   private pushDoneDown(): void {

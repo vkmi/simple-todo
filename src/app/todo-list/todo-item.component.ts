@@ -7,6 +7,7 @@ import { ITodoItem } from './todoItem';
   template: `
   <div *ngIf="!!listItem" class="itemRow">
     <div class="description" [ngClass]="{'completedItem':listItem.done}">{{listItem.description}}</div>
+    <input *ngIf="listItem.done" type="button" value="-" (click)="deleteItem()"/>
     <input class="checkbox" type="checkbox" [(ngModel)]="listItem.done" (change)="notifyChangeDone()"/>
   </div>
   <div class="divider"></div>
@@ -56,5 +57,9 @@ export class TodoItemComponent implements OnChanges {
 
   notifyChangeDone(): void{
     this.todoService.changedStatus(this.listItem);
+  }
+
+  deleteItem(): void{
+    this.todoService.deleteNote(this.listItem.id);
   }
 }
