@@ -46,8 +46,6 @@ import { ITodoItem } from './todoItem';
   .itemRow > button{
     background-color: rgba(0,0,0,0);
     border:0;
-
-    margin-right: -25px;
     padding-top: 5px;
   }
   .itemRow > button > i{
