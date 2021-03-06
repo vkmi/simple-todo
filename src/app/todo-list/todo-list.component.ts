@@ -22,10 +22,10 @@ export class TodoListComponent implements OnInit {
   constructor(private todoService: TodoService) {}
 
   ngOnInit(): void {
-    this.todoService.listChanged.subscribe(
+    this.todoService.taskList.subscribe(
       (updatedList) => (this.todoList = updatedList)
     );
-    this.todoService.pushListUpdate();
+    this.todoService.readTaskList();
   }
 
   addNewTodo(): void {
