@@ -1,0 +1,34 @@
+{
+    "instructionsList":[
+    {
+      "id": 0,
+      "description": "Uncomplete tasks will always be on top",
+      "order": 0,
+      "completed": false
+    },
+    {
+      "id": 1,
+      "description": "Completing a task will move it down to the completed items",
+      "order": 1,
+      "completed": false
+    },
+    {
+      "id": 2,
+      "description": "Tasks can be dragged to change their order",
+      "order": 2,
+      "completed": false
+    },
+    {
+      "id": 3,
+      "description": "Completed tasks will always be on the bottom",
+      "order": 3,
+      "completed": true
+    },
+    {
+      "id": 4,
+      "description": "Only completed tasks can be deleted, so work hard",
+      "order": 4,
+      "completed": true
+    }
+  ]
+}

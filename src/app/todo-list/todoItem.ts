@@ -4,3 +4,8 @@ export interface ITask {
   order: number;
   completed: boolean;
 }
+
+export interface ITaskList {
+  list: ITask[];
+  done: () => number;
+}
