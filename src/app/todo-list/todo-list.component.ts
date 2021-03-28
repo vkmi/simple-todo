@@ -25,7 +25,7 @@ export class TodoListComponent implements OnInit {
     this.todoService.taskList.subscribe(
       (updatedTasklist) => (this.tasklist = updatedTasklist)
     );
-    this.todoService.readTaskList();
+    this.todoService.getTasks();
   }
 
   addNewTask(): void {
@@ -39,6 +39,6 @@ export class TodoListComponent implements OnInit {
   updateListOrder(event: any): void {
     if (event.previousIndex === event.currentIndex) return;
 
-    this.todoService.updateTaskListOrder(event.previousIndex, event.currentIndex);
+    this.todoService.updateTasksOrder(event.previousIndex, event.currentIndex);
   }
 }

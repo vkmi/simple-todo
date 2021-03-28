@@ -11,27 +11,27 @@ export class TodoService {
   taskList: EventEmitter<ITask[]> = new EventEmitter<ITask[]>();
   constructor(private apiService: ApiServiceService) {}
 
-  readTaskList(): void {
+  getTasks(): void {
     this.taskList.emit(this.apiService.readTasklist());
   }
 
   addTask(description: string): void {
     this.tasks = this.apiService.createTask(description);
-    this.readTaskList();
+    this.getTasks();
   }
 
   deleteTask(id: number): void {
     this.tasks = this.apiService.deleteTask(id);
-    this.readTaskList();
+    this.getTasks();
   }
 
-  changeCompletionStatus(item: ITask): void {
+  updateTask(item: ITask): void {
     this.tasks = this.apiService.updateTaskCompletionStatus(item);
-    this.readTaskList();
+    this.getTasks();
   }
 
-  updateTaskListOrder(previousIndex: number, newIndex: number): void {
+  updateTasksOrder(previousIndex: number, newIndex: number): void {
     this.tasks = this.apiService.updateTasklistOrder(previousIndex, newIndex);
-    this.readTaskList();
+    this.getTasks();
   }
 }

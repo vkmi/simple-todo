@@ -84,7 +84,7 @@ export class TodoItemComponent implements OnChanges {
   ngOnChanges(): void {}
 
   changedCompletionStatus(): void {
-    this.todoService.changeCompletionStatus(this.task);
+    this.todoService.updateTask(this.task);
   }
 
   deleteItem(): void {
