@@ -1,21 +1,6 @@
-.title {
-  margin: 0 !important;
-  width: 100%;
-  height: 41px;
-  padding-top: 9px;
-
-  background-color: teal;
-  color: whitesmoke;
-  text-align: center;
-  font-size: xx-large;
-  font-weight: 500;
-  text-shadow: 0 0 3px #333;
-  box-shadow: 0 0 5px #333;
-}
-
 .appViewport {
   position: absolute;
-  top: 50px;
+  top: 20px;
   left: 0px;
   right: 0px;
   bottom: 0px;
