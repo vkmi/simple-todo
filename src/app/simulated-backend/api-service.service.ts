@@ -116,6 +116,12 @@ export class ApiServiceService {
     return this.readTasklist();
   }
 
+  clearList(): ITask[] {
+    this.todoList = this.todoList.filter(i => !i.completed);
+    this.writeListToLocalStorage();
+    return this.readTasklist();
+  }
+
   // PRIVATE METHODS
   private reorderList(): void {
     this.todoList.sort(this.itemComparer);

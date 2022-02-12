@@ -83,3 +83,21 @@
   grid-area: notes;
   border-radius: 3px;
 }
+
+.btn-clear{
+  border: none;
+  border-radius: 3px;
+  padding: 10px;
+  background-color: #d54;
+  text-transform: uppercase;
+  color: #eee;
+  line-height:1;
+  font-weight: 600;
+  letter-spacing: 1px;
+  cursor: pointer;
+}
+.btn-clear:hover{
+  transition: all 0.2s;
+  background-color: #e43;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.3); 
+}

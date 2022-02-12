@@ -41,4 +41,8 @@ export class TodoListComponent implements OnInit {
 
     this.todoService.updateTasksOrder(event.previousIndex, event.currentIndex);
   }
+
+  clearList(): void {
+    this.todoService.clearList();
+  }
 }
