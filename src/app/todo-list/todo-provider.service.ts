@@ -34,4 +34,9 @@ export class TodoService {
     this.tasks = this.apiService.updateTasklistOrder(previousIndex, newIndex);
     this.getTasks();
   }
+
+  clearList(): ITask[] {
+    this.todoList = this.apiService.clearList();
+    this.getTasks();
+  }
 }
