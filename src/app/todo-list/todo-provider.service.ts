@@ -35,7 +35,7 @@ export class TodoService {
     this.getTasks();
   }
 
-  clearList(): ITask[] {
+  clearList(): void {
     this.tasks = this.apiService.clearList();
     this.getTasks();
   }
