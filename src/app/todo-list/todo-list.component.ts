@@ -19,7 +19,7 @@ export class TodoListComponent implements OnInit {
     this._newTaskDescription = value;
   }
   validInput: boolean = false;
-  constructor(private todoService: TodoService) {}
+  constructor(private todoService: TodoService) { }
 
   ngOnInit(): void {
     this.todoService.taskList.subscribe(
@@ -44,5 +44,19 @@ export class TodoListComponent implements OnInit {
 
   clearList(): void {
     this.todoService.clearList();
+  }
+
+  export(): void {
+    let text = ""
+    this.tasklist.forEach(t => text += t.description + '\n');
+
+    const element = document.createElement('a');
+    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+    element.setAttribute('download', 'tasks');
+    element.style.display = 'none';
+
+    document.body.appendChild(element);
+    element.click();
+    document.body.removeChild(element);
   }
 }

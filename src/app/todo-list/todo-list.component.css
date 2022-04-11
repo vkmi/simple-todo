@@ -84,13 +84,15 @@
   border-radius: 3px;
   position: relative;
 }
+.list{
+  padding-bottom: 40px;
+}
 
-.btn-clear{
+.btn{
   border: none;
   border-radius: 3px;
   padding: 10px;
   margin: 10px;
-  background-color: #d54;
   text-transform: uppercase;
   color: #eee;
   line-height:1;
@@ -100,8 +102,19 @@
   position: absolute;
   bottom: 0;
 }
-.btn-clear:hover{
+.btn:hover{
   transition: all 0.2s;
-  background-color: #e43;
   box-shadow: 0 2px 5px rgba(0,0,0,0.3); 
+}
+.btn-clear{
+  background-color: #d54;
+}
+.btn-clear:hover{
+  background-color: #e43;
+}
+.btn-export {
+  background-color: teal;
+}
+.btn-export:hover {
+  background-color: rgb(0,150,150);
 }
