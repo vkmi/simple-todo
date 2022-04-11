@@ -1,12 +1,7 @@
 <div class="container">
   <div class="inputFlexItem">
-    <input
-      name="description"
-      id="desc"
-      placeholder="Insert new note"
-      [(ngModel)]="newTaskDescription"
-      (keyup.enter)="addNewTask()"
-    />
+    <input name="description" id="desc" placeholder="Insert new note" [(ngModel)]="newTaskDescription"
+      (keyup.enter)="addNewTask()" />
     <button class="" (click)="addNewTask()" [disabled]="!validInput">+</button>
   </div>
 
@@ -16,8 +11,10 @@
         <app-todo-item [id]="item.id" [task]="item"></app-todo-item>
       </div>
     </div>
-    <button class="btn btn-clear" (click)="clearList()">clear completed</button>
-    <button class="btn btn-export" (click)="export()">export list</button>
+    <div class="btn-container">
+      <button class="btn btn-clear" (click)="clearList()">clear completed</button>
+      <button class="btn btn-export" (click)="export()">export list</button>
+    </div>
   </div>
 </div>
 <!-- <pre style="color: white; background-color: gray;"  ><code >{{todoList | json}}</code></pre> -->
